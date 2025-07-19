@@ -45,11 +45,60 @@ const SignIn = () => {
 
     if (user && user.length > 0) {
       const { u_password, u_name } = user[0];
+
+      if (data.password !== u_password) {
+        //add to auditlog
+        const auditdata = {
+          al_userid: data.userid,
+          al_user: data.name,
+          al_date: dayjs().format("YYYY-MM-DD"),
+          al_time: dayjs().format("HHmmss"),
+          al_timestr: dayjs().format("HH:mm:ss"),
+          al_module: "Sign In",
+          al_action: "Log in",
+          al_record: "",
+          al_remark: "Invalid password",
+        };
+        addAuditlog(auditdata);
+
+        Toast({
+          title: "Invalid UserId / Password",
+          status: "warning",
+        });
+      } else {
+        setLocalState({ userid: data.userid, name: u_name });
+        //add to auditlog
+        /*   const auditdata = {
+          al_userid: data.userid,
+          al_user: u_name,
+          al_date: dayjs().format('YYYY-MM-DD'),
+          al_time: dayjs().format('HHmmss'),
+          al_timestr: dayjs().format('HH:mm:ss'),
+          al_module: 'Sign In',
+          al_action: 'Log in',
+          al_record: '',
+          al_remark: 'Successful',
+        };
+        addAuditlog(auditdata); */
+      }
     } else {
       Toast({
         title: "Invalid UserId",
         status: "warning",
       });
+      //add to auditlog
+      /* const auditdata = {
+        al_userid: data.userid,
+        al_user: data.name,
+        al_date: dayjs().format('YYYY-MM-DD'),
+        al_time: dayjs().format('HHmmss'),
+        al_timestr: dayjs().format('HH:mm:ss'),
+        al_module: 'Sign In',
+        al_action: 'Log in',
+        al_record: '',
+        al_remark: 'Invalid user id',
+      };
+      addAuditlog(auditdata); */
     }
   };
 
