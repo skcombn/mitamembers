@@ -27,7 +27,7 @@ const UserStatusBox = () => {
       {localstate.userid && localstate.userid.length > 0 && (
         <IconButton
           icon={<RiLogoutBoxRLine />}
-          display={{ base: "none", md: "inline-flex" }}
+          display={{ base: "block", md: "inline-flex" }}
           fontSize={"28"}
           fontWeight={600}
           color="teal"
