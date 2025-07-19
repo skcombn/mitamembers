@@ -1,4 +1,4 @@
-import dayjs from 'dayjs';
+import dayjs from "dayjs";
 import {
   Box,
   Button,
@@ -16,14 +16,14 @@ import {
   TabPanel,
   useBreakpointValue,
   useColorModeValue,
-} from '@chakra-ui/react';
-import { Controller, useForm } from 'react-hook-form';
-import { Toast } from '../helpers/CustomToastify';
-import { useUsers } from '../react-query/users/useUsers';
-import { useUpdateUser } from '../react-query/users/useUpdateUser';
-import { useAddAuditlog } from '../react-query/auditlog/useAddAuditlog';
-import useLocalStorageState from 'use-local-storage-state';
-import { user_localstorage_key } from '../utils/constants';
+} from "@chakra-ui/react";
+import { Controller, useForm } from "react-hook-form";
+import { Toast } from "../helpers/CustomToastify";
+import { useUsers } from "../react-query/users/useUsers";
+import { useUpdateUser } from "../react-query/users/useUpdateUser";
+import { useAddAuditlog } from "../react-query/auditlog/useAddAuditlog";
+import useLocalStorageState from "use-local-storage-state";
+import { user_localstorage_key } from "../utils/constants";
 
 const SignIn = () => {
   const [localstate, setLocalState] = useLocalStorageState(
@@ -40,71 +40,22 @@ const SignIn = () => {
     formState: {},
   } = useForm();
 
-  const handleSignIn = data => {
-    const user = users && users.filter(r => r.u_userid === data.userid);
+  const handleSignIn = (data) => {
+    const user = users && users.filter((r) => r.u_userid === data.userid);
 
     if (user && user.length > 0) {
       const { u_password, u_name } = user[0];
-
-      if (data.password !== u_password) {
-        //add to auditlog
-        const auditdata = {
-          al_userid: data.userid,
-          al_user: data.name,
-          al_date: dayjs().format('YYYY-MM-DD'),
-          al_time: dayjs().format('HHmmss'),
-          al_timestr: dayjs().format('HH:mm:ss'),
-          al_module: 'Sign In',
-          al_action: 'Log in',
-          al_record: '',
-          al_remark: 'Invalid password',
-        };
-        addAuditlog(auditdata);
-
-        Toast({
-          title: 'Invalid UserId / Password',
-          status: 'warning',
-        });
-      } else {
-        setLocalState({ userid: data.userid, name: u_name });
-        //add to auditlog
-        const auditdata = {
-          al_userid: data.userid,
-          al_user: u_name,
-          al_date: dayjs().format('YYYY-MM-DD'),
-          al_time: dayjs().format('HHmmss'),
-          al_timestr: dayjs().format('HH:mm:ss'),
-          al_module: 'Sign In',
-          al_action: 'Log in',
-          al_record: '',
-          al_remark: 'Successful',
-        };
-        addAuditlog(auditdata);
-      }
     } else {
       Toast({
-        title: 'Invalid UserId',
-        status: 'warning',
+        title: "Invalid UserId",
+        status: "warning",
       });
-      //add to auditlog
-      const auditdata = {
-        al_userid: data.userid,
-        al_user: data.name,
-        al_date: dayjs().format('YYYY-MM-DD'),
-        al_time: dayjs().format('HHmmss'),
-        al_timestr: dayjs().format('HH:mm:ss'),
-        al_module: 'Sign In',
-        al_action: 'Log in',
-        al_record: '',
-        al_remark: 'Invalid user id',
-      };
-      addAuditlog(auditdata);
     }
   };
 
-  const handleChangePW = data => {
+  const handleChangePW = (data) => {
     const { userid, userid2, currpw, newpw, newpwconfirm } = data;
-    const user = users.filter(r => r.u_userid === userid2);
+    const user = users.filter((r) => r.u_userid === userid2);
 
     if (user.length > 0) {
       if (currpw === user[0].u_password) {
@@ -115,20 +66,20 @@ const SignIn = () => {
           updateUser({ id, ...updRec });
         } else {
           Toast({
-            title: 'Invalid new password / confirm password',
-            status: 'warning',
+            title: "Invalid new password / confirm password",
+            status: "warning",
           });
         }
       } else {
         Toast({
-          title: 'Invalid UserId / Password',
-          status: 'warning',
+          title: "Invalid UserId / Password",
+          status: "warning",
         });
       }
     } else {
       Toast({
-        title: 'Invalid UserId / Password',
-        status: 'warning',
+        title: "Invalid UserId / Password",
+        status: "warning",
       });
     }
   };
@@ -137,19 +88,19 @@ const SignIn = () => {
     <Container
       mt={16}
       maxW="lg"
-      py={{ base: '12', md: '20' }}
-      px={{ base: '0', sm: '8' }}
+      py={{ base: "12", md: "20" }}
+      px={{ base: "0", sm: "8" }}
       border="1px solid teal"
-      boxShadow={{ base: 'none', sm: useColorModeValue('md', 'md-dark') }}
-      borderRadius={{ base: 'none', sm: 'xl' }}
+      boxShadow={{ base: "none", sm: useColorModeValue("md", "md-dark") }}
+      borderRadius={{ base: "none", sm: "xl" }}
       bg="olive.50"
     >
       <Stack spacing="8">
         <Stack spacing="6">
           {/* <Logo /> */}
-          <Stack spacing={{ base: '2', md: '3' }} textAlign="center">
+          <Stack spacing={{ base: "2", md: "3" }} textAlign="center">
             <Heading
-              size={useBreakpointValue({ base: 'xs', md: 'md' })}
+              size={useBreakpointValue({ base: "xs", md: "md" })}
               color="teal"
               letterSpacing={1}
               pb="5"
@@ -158,16 +109,16 @@ const SignIn = () => {
             >
               INVENTORY MANAGEMENT SYSTEM
             </Heading>
-            <Heading size={useBreakpointValue({ base: 'xs', md: 'md' })}>
+            <Heading size={useBreakpointValue({ base: "xs", md: "md" })}>
               User Log in
             </Heading>
           </Stack>
         </Stack>
         <Box
-          py={{ base: '0', sm: '8' }}
-          px={{ base: '4', sm: '10' }}
-          boxShadow={{ base: 'none', sm: useColorModeValue('md', 'md-dark') }}
-          borderRadius={{ base: 'none', sm: 'xl' }}
+          py={{ base: "0", sm: "8" }}
+          px={{ base: "4", sm: "10" }}
+          boxShadow={{ base: "none", sm: useColorModeValue("md", "md-dark") }}
+          borderRadius={{ base: "none", sm: "xl" }}
           border="1px solid"
           borderColor="teal.200"
         >
@@ -193,7 +144,7 @@ const SignIn = () => {
                               </Text>
                               <Input
                                 name="userid"
-                                value={value || ''}
+                                value={value || ""}
                                 width="full"
                                 onChange={onChange}
                                 borderColor="gray.400"
@@ -216,7 +167,7 @@ const SignIn = () => {
                               </Text>
                               <Input
                                 name="password"
-                                value={value || ''}
+                                value={value || ""}
                                 type="password"
                                 width="full"
                                 onChange={onChange}
@@ -233,7 +184,7 @@ const SignIn = () => {
                     <Stack spacing="6" pt={2}>
                       <Button
                         variant="solid"
-                        colorScheme={'teal'}
+                        colorScheme={"teal"}
                         onClick={handleSubmit(handleSignIn)}
                       >
                         Sign in
@@ -253,7 +204,7 @@ const SignIn = () => {
                               </Text>
                               <Input
                                 name="userid2"
-                                value={value || ''}
+                                value={value || ""}
                                 width="full"
                                 onChange={onChange}
                                 borderColor="gray.400"
@@ -276,7 +227,7 @@ const SignIn = () => {
                               </Text>
                               <Input
                                 name="currpw"
-                                value={value || ''}
+                                value={value || ""}
                                 width="full"
                                 onChange={onChange}
                                 borderColor="gray.400"
@@ -299,7 +250,7 @@ const SignIn = () => {
                               </Text>
                               <Input
                                 name="newpw"
-                                value={value || ''}
+                                value={value || ""}
                                 type="password"
                                 width="full"
                                 onChange={onChange}
@@ -323,7 +274,7 @@ const SignIn = () => {
                               </Text>
                               <Input
                                 name="newpwconfirm"
-                                value={value || ''}
+                                value={value || ""}
                                 type="password"
                                 width="full"
                                 onChange={onChange}
@@ -341,7 +292,7 @@ const SignIn = () => {
                       <Button
                         variant="solid"
                         size="md"
-                        colorScheme={'teal'}
+                        colorScheme={"teal"}
                         onClick={handleSubmit(handleChangePW)}
                       >
                         Update Password
