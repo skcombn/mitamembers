@@ -206,7 +206,7 @@ const MemberForm = ({
                       </Text>
                       <Input
                         name="m_name"
-                        value={value}
+                        value={value || ""}
                         width="full"
                         onChange={onChange}
                         borderColor="gray.400"
@@ -232,7 +232,7 @@ const MemberForm = ({
                       </Text>
                       <Input
                         name="m_mobile"
-                        value={value}
+                        value={value || ""}
                         width="full"
                         onChange={onChange}
                         borderColor="gray.400"
@@ -284,7 +284,7 @@ const MemberForm = ({
                       </Text>
                       <Input
                         name="m_dobtext"
-                        value={value}
+                        value={value || ""}
                         width="full"
                         onChange={onChange}
                         borderColor="gray.400"
@@ -372,7 +372,7 @@ const MemberForm = ({
                       </Text>
                       <Input
                         name="m_remark"
-                        value={value}
+                        value={value || ""}
                         width="full"
                         onChange={onChange}
                         borderColor="gray.400"
@@ -430,7 +430,7 @@ const MemberForm = ({
                       </Text>
                       <Input
                         name="m_claim25remark"
-                        value={value}
+                        value={value || ""}
                         width="full"
                         onChange={onChange}
                         borderColor="gray.400"
@@ -489,7 +489,7 @@ const MemberForm = ({
                       </Text>
                       <Input
                         name="m_claim15remark"
-                        value={value}
+                        value={value || ""}
                         width="full"
                         onChange={onChange}
                         borderColor="gray.400"

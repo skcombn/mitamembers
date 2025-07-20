@@ -44,7 +44,7 @@ const SignIn = () => {
     const user = users && users.filter((r) => r.u_userid === data.userid);
 
     if (user && user.length > 0) {
-      const { u_password, u_name } = user[0];
+      const { u_password, u_name, u_level } = user[0];
 
       if (data.password !== u_password) {
         //add to auditlog
@@ -66,7 +66,7 @@ const SignIn = () => {
           status: "warning",
         });
       } else {
-        setLocalState({ userid: data.userid, name: u_name });
+        setLocalState({ userid: data.userid, name: u_name, level: u_level });
         //add to auditlog
         /*   const auditdata = {
           al_userid: data.userid,

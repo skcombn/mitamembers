@@ -7,11 +7,12 @@ import { useMembers } from "../react-query/members/useMembers";
 import { useAddMember } from "../react-query/members/useAddMember";
 import { useUpdateMember } from "../react-query/members/useUpdateMember";
 import { useDeleteMember } from "../react-query/members/useDeleteMember";
+import useLocalStorageState from "use-local-storage-state";
+import { user_localstorage_key } from "../utils/constants";
 import CustomReactTable from "../helpers/CustomReactTable";
 import MemberForm from "./MemberForm";
 
 const initial_state = {
-  m_id: "",
   m_name: "",
   m_mobile: "",
   m_dobtext: "",
@@ -35,6 +36,9 @@ const MembersTable = () => {
   const deleteMember = useDeleteMember();
   const [state, setState] = useState({});
   const [statustype, setStatusType] = useState("");
+  const [localstate, setLocalState, { removeItem }] = useLocalStorageState(
+    user_localstorage_key
+  );
 
   const {
     isOpen: isAlertDeleteOpen,
@@ -104,14 +108,17 @@ const MembersTable = () => {
   };
 
   const handleDeleteMember = (row) => {
-    Toast({
-      title: "You have no authorisation to delete this member!",
-      status: "warning",
-      customId: "custDel",
-    });
-    // const { original } = row;
-    // setState((prev) => original);
-    // onAlertDeleteOpen();
+    if (localstate.level > 0) {
+      const { original } = row;
+      setState((prev) => original);
+      onAlertDeleteOpen();
+    } else {
+      Toast({
+        title: "You have no authorisation to delete this member!",
+        status: "warning",
+        customId: "custDel",
+      });
+    }
   };
 
   const add_Member = (data) => {
