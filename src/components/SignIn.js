@@ -156,7 +156,7 @@ const SignIn = () => {
               fontWeight={800}
               fontFamily="sans-serif"
             >
-              INVENTORY MANAGEMENT SYSTEM
+              MITA MEMBERSHIP
             </Heading>
             <Heading size={useBreakpointValue({ base: "xs", md: "md" })}>
               User Log in
