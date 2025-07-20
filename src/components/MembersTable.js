@@ -85,6 +85,58 @@ const MembersTable = () => {
           align: "left",
         },
       },
+      {
+        id: "dobtext",
+        header: "DOBText",
+        accessorFn: (row) => row.m_dobtext,
+        //size: 200,
+        mantineTableBodyCellProps: {
+          align: "left",
+        },
+      },
+      {
+        header: "BirthDate",
+        accessorKey: "m_birthdate",
+        //size: 200,
+        mantineTableBodyCellProps: {
+          align: "left",
+        },
+      },
+    ],
+    []
+  );
+
+  const columns_base = useMemo(
+    () => [
+      /*  {
+        header: "Id",
+        accessorFn: (row) => row.m_d,
+        //size: 200,
+        mantineTableBodyCellProps: {
+          align: "left",
+        },
+      }, */
+      {
+        header: "Name",
+        accessorKey: "m_name",
+        size: 200,
+        mantineTableBodyCellProps: {
+          align: "left",
+        },
+        cell: (row) => (
+          <div style={{ overflow: "hidden", textAlign: "left" }}>
+            {row.m_name}
+          </div>
+        ),
+      },
+      {
+        header: "Mobile",
+        accessorFn: (row) => row.m_mobile,
+        //size: 200,
+        mantineTableBodyCellProps: {
+          align: "left",
+        },
+      },
     ],
     []
   );
@@ -142,7 +194,13 @@ const MembersTable = () => {
           title={title}
           columns={columns}
           data={members}
-          initialState={{ sorting: [{ id: "m_name", desc: false }] }}
+          initialState={{
+            sorting: [{ id: "m_name", desc: false }],
+            columnVisibility: {
+              dobtext: false,
+              m_birthdate: false,
+            },
+          }}
           handleAdd={handleAddMember}
           handleEdit={handleEditMember}
           handleDelete={handleDeleteMember}

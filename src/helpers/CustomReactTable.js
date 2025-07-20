@@ -102,6 +102,9 @@ const CustomReactTable = ({
         header: "Actions", //change header text
         size: 100,
       },
+      "mrt-row-numbers": {
+        enableHiding: true, //now row numbers are hidable too
+      },
     },
     columnFilterDisplayMode: "subheader",
     paginationDisplayMode: "pages",
