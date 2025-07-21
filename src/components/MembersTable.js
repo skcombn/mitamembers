@@ -197,8 +197,8 @@ const MembersTable = () => {
           initialState={{
             sorting: [{ id: "m_name", desc: false }],
             columnVisibility: {
-              dobtext: false,
-              m_birthdate: false,
+              dobtext: true,
+              m_birthdate: true,
             },
           }}
           handleAdd={handleAddMember}
